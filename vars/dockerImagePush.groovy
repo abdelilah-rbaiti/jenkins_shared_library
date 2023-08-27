@@ -10,3 +10,4 @@ def call(String project, String ImageTag, String hubUser){
             docker image push ${hubUser}/${project}:latest
         """  
  }
+}
