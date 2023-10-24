@@ -1,3 +1,3 @@
-def call() {
+def runUnitTests() {
   sh 'mvn clean test'
 }
