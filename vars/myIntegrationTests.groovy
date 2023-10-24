@@ -1,4 +1,4 @@
 
 def runIntegrationTests() {
-    sh 'mvn verify DskipUnitTests'
+    sh 'mvn verify -DskipUnitTests'
 }
