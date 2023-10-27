@@ -1,5 +1,10 @@
-def call(credentialsId) {
-    withSonarQubeEnv(credentialsId: credentialsId ) {
-        sh 'mvn clean package sonar:sonar' 
+def call(Map config) {
+    def sonarCredentialsId = config.sonarCredentialsId
+    def sonarServer = config.sonarServer
+
+    script {
+        withCredentials([string(credentialsId: sonarCredentialsId, variable: 'SONAR_SECRET')]) {
+            sh "sonar-scanner -Dsonar.host.url=https://${sonarServer} -Dsonar.login=\${SONAR_SECRET}"
+        }
     }
 }
