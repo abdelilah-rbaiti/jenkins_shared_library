@@ -3,8 +3,8 @@ def call(Map config) {
     def sonarServer = config.sonarServer
 
     script {
-        withCredentials([string(credentialsId: sonarCredentialsId, variable: 'SONAR_SECRET')]) {
-            sh "sonar-scanner -Dsonar.host.url=https://${sonarServer} -Dsonar.login=\${SONAR_SECRET}"
+        withCredentials([string(credentialsId: sonarCredentialsId, variable: 'sqa_9184940705ba62b2fe8d64c5023b43dc3ef0c846')]) {
+            sh "sonar-scanner -Dsonar.host.url=https://localhost:9000 -Dsonar.login=\sonarqube-jenkins"
         }
     }
 }
