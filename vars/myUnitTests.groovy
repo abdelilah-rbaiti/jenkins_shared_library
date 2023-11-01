@@ -1,3 +1,3 @@
 def runUnitTests() {
-  sh 'mvn clean test'
+  sh 'mvn  test'
 }
