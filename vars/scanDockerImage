@@ -1,6 +1,30 @@
-def call(String fullyQualifiedImage) {
+// def call(String fullyQualifiedImage) {
     // Scan Docker image using Trivy
-    sh "trivy ${fullyQualifiedImage} > scan.txt"
+//    sh "trivy ${fullyQualifiedImage} > scan.txt"
     // Display scan results
-    sh "cat scan.txt"
+  //  sh "cat scan.txt"
+// }
+
+// Get the image name from Dockerfile file
+def dockerImageName = "dockerfile".execute().text.tokenize()[1]
+println dockerImageName.trim()
+
+// Run Trivy without GitHub token
+def trivyCommand = "docker run --rm -v $WORKSPACE:/root/.cache/ aquasec/trivy:0.17.2 -q image --exit-code 1 --severity CRITICAL --light $dockerImageName"
+
+// Execute the Trivy command
+def trivyProcess = trivyCommand.execute()
+trivyProcess.waitFor()
+
+// Trivy scan result processing
+def exitCode = trivyProcess.exitValue()
+println "Exit Code : $exitCode"
+
+// Check scan results
+if (exitCode == 1) {
+    println "Image scanning failed. Vulnerabilities found"
+    System.exit(1)
+} else {
+    println "Image scanning passed. No CRITICAL vulnerabilities found"
 }
+
