@@ -1,0 +1,4 @@
+def scanDockerImage(String imageName, String imageTag = 'latest') {
+    // Scan Docker image using Trivy
+    sh "trivy ${imageName}:${imageTag}"
+}
