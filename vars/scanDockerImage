@@ -1,4 +1,6 @@
-def scanDockerImage(String imageNameWithTag) {
+def scanDockerImage(String fullyQualifiedImage) {
     // Scan Docker image using Trivy
-    sh "trivy ${imageNameWithTag}"
+    sh "trivy ${fullyQualifiedImage} > scan.txt"
+    // Display scan results
+    sh "cat scan.txt"
 }
